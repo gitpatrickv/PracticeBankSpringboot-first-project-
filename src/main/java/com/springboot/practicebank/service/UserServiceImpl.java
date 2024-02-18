@@ -1,10 +1,10 @@
 package com.springboot.practicebank.service;
 
 
-import com.springboot.practicebank.config.JwtTokenProvider;
 import com.springboot.practicebank.dto.*;
 import com.springboot.practicebank.entity.User;
 import com.springboot.practicebank.repository.UserRepository;
+import com.springboot.practicebank.security.JwtTokenProvider;
 import com.springboot.practicebank.utils.AccountUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
