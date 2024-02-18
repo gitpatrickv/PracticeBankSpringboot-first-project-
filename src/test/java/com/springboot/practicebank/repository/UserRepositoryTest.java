@@ -13,8 +13,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 class UserRepositoryTest {
 
-    //NEED TO DISABLE COMMANDLINE RUNNER @PracticeBankApplication class to make the test run successful
-
     @Autowired
     private UserRepository userRepository;
 
