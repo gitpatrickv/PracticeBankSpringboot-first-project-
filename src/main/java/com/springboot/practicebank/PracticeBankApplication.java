@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PracticeBankApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(PracticeBankApplication.class, args);
 	}
+
 	}
 
 
