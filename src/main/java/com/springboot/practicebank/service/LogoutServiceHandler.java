@@ -1,5 +1,6 @@
-package com.springboot.practicebank.config;
+package com.springboot.practicebank.service;
 
+import com.springboot.practicebank.security.JwtTokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

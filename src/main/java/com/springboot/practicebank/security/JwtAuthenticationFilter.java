@@ -1,4 +1,4 @@
-package com.springboot.practicebank.config;
+package com.springboot.practicebank.security;
 
 
 import jakarta.servlet.FilterChain;
