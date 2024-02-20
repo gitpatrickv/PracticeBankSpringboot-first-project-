@@ -10,13 +10,12 @@ public class AgeValidator implements ConstraintValidator<AgeValid, Integer> {
 
     private Integer below;
     private Integer above;
-    String message;
+
     @Override
     public void initialize(AgeValid ageValid) {
 
         this.below = ageValid.below();
         this.above = ageValid.above();
-        this.message = ageValid.message();
     }
 
     @Override

@@ -17,8 +17,11 @@ public class UserDetailService implements UserDetailsService {
     private final UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
         return userRepository.findByEmail(username)
-                .orElseThrow(() -> new NoSuchElementException("User not Found: " + username));
+            .orElseThrow(() -> new NoSuchElementException("User not Found: " + username));
+
     }
 
 }
+

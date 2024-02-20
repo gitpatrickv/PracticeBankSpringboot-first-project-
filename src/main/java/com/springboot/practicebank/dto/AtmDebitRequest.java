@@ -23,7 +23,7 @@ public class AtmDebitRequest {
     private String userAccountNumber;
 
     @NotBlank
-    @Size(min = 4, max = 4, message = "Wrong Pin Number: Pin number must be a 4 digit number")
+    @Size(min = 4, max = 4, message = "{pin.number.invalid}")
     private String userPinNumber;
 
     private BigDecimal amount;

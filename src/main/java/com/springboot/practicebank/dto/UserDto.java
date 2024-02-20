@@ -5,7 +5,6 @@ import com.springboot.practicebank.entity.Status;
 import com.springboot.practicebank.validation.AgeValid;
 import com.springboot.practicebank.validation.GenderValid;
 import com.springboot.practicebank.validation.UniqueEmailValid;
-import com.springboot.practicebank.validation.marker.OnCreate;
 import com.springboot.practicebank.validation.marker.OnUpdate;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -29,38 +28,38 @@ import java.math.BigDecimal;
 public class UserDto {
     @Valid
 
-    @NotBlank(groups = OnCreate.class)
+    @NotBlank
     private String firstName;
 
-    @NotBlank(groups = OnCreate.class)
+    @NotBlank
     private String lastName;
 
-    @GenderValid(groups = OnCreate.class)
+    @GenderValid
     private String gender;
 
-    @NotBlank(groups = OnCreate.class)
+    @NotBlank
     private String address;
 
-    @NotBlank(groups = OnCreate.class)
+    @NotBlank
     private String phoneNumber;
 
-    @AgeValid(groups = OnCreate.class)
+    @AgeValid
     private Integer age;
 
     @Email
     @UniqueEmailValid(groups = OnUpdate.class)
-    @NotBlank(groups = OnCreate.class)
+    @NotBlank
     private String email;
 
-    @NotBlank(groups = OnCreate.class)
-    @Size(min = 8, max = 20, message = "Password length must be between 8 and 20 characters")
+    @NotBlank
+    @Size(min = 8, max = 20, message = "{password.invalid}")
     private String password;
 
     private String accountNumber;
 
-    @NotBlank(groups = OnCreate.class)
-    @Size(min = 4, max = 4, message = "Pin Number length must only contains 4 digit number")
-    @Pattern(regexp = "\\d{4}", message = "Pin Number must be a 4 digit number")
+    @NotBlank
+    @Size(min = 4, max = 4, message = "{pin.number.invalid}")
+    @Pattern(regexp = "\\d{4}", message = "{pin.number.size}")
     private String atmPin;
 
     @Enumerated(EnumType.STRING)
@@ -70,8 +69,6 @@ public class UserDto {
     private Role role;
 
     private BigDecimal accountBalance;
-
-
 
 
 }

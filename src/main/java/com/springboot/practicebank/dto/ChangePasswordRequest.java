@@ -25,11 +25,11 @@ public class ChangePasswordRequest {
 
 
     @NotBlank
-    @Size(min = 8, max = 20, message = "Password length must be between 8 and 20 characters")
+    @Size(min = 8, max = 20, message = "{password.invalid}")
     private String newPassword;
 
 
     @NotBlank
-    @Size(min = 8, max = 20, message = "Password length must be between 8 and 20 characters")
+    @Size(min = 8, max = 20, message = "{password.invalid}")
     private String confirmationPassword;
 }
