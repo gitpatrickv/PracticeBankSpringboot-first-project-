@@ -8,9 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface TransactionRepository extends JpaRepository<Transaction, String> {
 
     Boolean existsByAccountNumber(String accountNumber);
-
     Transaction findByAccountNumber(String accountNumber);
-
-
 
 }

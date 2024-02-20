@@ -29,4 +29,5 @@ public class GlobalExceptionHandler {
         //String message = err.getBindingResult().getFieldError().getDefaultMessage();
         //return ResponseEntity.badRequest().body(new ErrorMessage(HttpStatus.BAD_REQUEST, err.getMessage()));
     }
+
 }

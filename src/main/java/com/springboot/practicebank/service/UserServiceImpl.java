@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService {
                 .gender(userDto.getGender())
                 .address(userDto.getAddress())
                 .phoneNumber(userDto.getPhoneNumber())
+                .age(userDto.getAge())
                 .email(userDto.getEmail())
                 .accountNumber(AccountUtils.generateAccountNumber())
                 .accountBalance(BigDecimal.ZERO)

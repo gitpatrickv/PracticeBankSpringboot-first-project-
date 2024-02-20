@@ -38,7 +38,7 @@ public class AccountController {
     }
     @PutMapping("/updateInfo")
     @ResponseStatus(HttpStatus.OK)
-    public UpdateUserDto updateUserInfo(@RequestBody UserDto userDto){
+    public UpdateUserDto updateUserInfo(@RequestBody @Valid UserDto userDto){
         return accountService.updateUserInfo(userDto);
     }
     @PutMapping("/changePassword")

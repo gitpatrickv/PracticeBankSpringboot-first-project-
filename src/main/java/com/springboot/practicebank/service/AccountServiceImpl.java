@@ -23,7 +23,6 @@ public class AccountServiceImpl implements AccountService{
     private final TransactionService transactionService;
     private final PasswordEncoder passwordEncoder;
 
-
     @Override
     public BankResponse creditAccount(CreditRequest creditRequest) {
 
@@ -55,7 +54,6 @@ public class AccountServiceImpl implements AccountService{
                         .build())
                 .build();
     }
-
 
     @Override
     public BankResponse atmDebitAccount(AtmDebitRequest atmDebitRequest) {
@@ -248,7 +246,10 @@ public class AccountServiceImpl implements AccountService{
             updateInfo.setPhoneNumber(userDto.getPhoneNumber());
         }
         if (userDto.getEmail() != null) {
-            updateInfo.setEmail(userDto.getEmail());
+            //boolean checkEmail = userRepository.existsByEmail(userDto.getEmail());
+            //if(!checkEmail) {
+                updateInfo.setEmail(userDto.getEmail());
+            //}
         }
 
         userRepository.save(updateInfo);
@@ -260,7 +261,6 @@ public class AccountServiceImpl implements AccountService{
                 .phoneNumber(updateInfo.getPhoneNumber())
                 .email(updateInfo.getEmail())
                 .build();
-
     }
 
     @Override
