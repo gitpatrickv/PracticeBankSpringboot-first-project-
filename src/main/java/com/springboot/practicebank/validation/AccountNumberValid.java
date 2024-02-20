@@ -15,7 +15,7 @@ import static java.lang.annotation.ElementType.FIELD;
 @Constraint(validatedBy = AccountNumberValidator.class)
 public @interface AccountNumberValid {
 
-    String message() default "Invalid Account Number!!!";
+    String message() default "{account.number.invalid}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 

@@ -246,10 +246,7 @@ public class AccountServiceImpl implements AccountService{
             updateInfo.setPhoneNumber(userDto.getPhoneNumber());
         }
         if (userDto.getEmail() != null) {
-            //boolean checkEmail = userRepository.existsByEmail(userDto.getEmail());
-            //if(!checkEmail) {
-                updateInfo.setEmail(userDto.getEmail());
-            //}
+            updateInfo.setEmail(userDto.getEmail());
         }
 
         userRepository.save(updateInfo);

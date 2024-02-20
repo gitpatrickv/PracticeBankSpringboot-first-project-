@@ -1,6 +1,5 @@
 package com.springboot.practicebank.dto;
 
-import com.springboot.practicebank.validation.UniqueEmailValid;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +18,6 @@ public class UpdateUserDto {
     private String lastName;
     private String address;
     private String phoneNumber;
-    @UniqueEmailValid
     private String email;
 
 }

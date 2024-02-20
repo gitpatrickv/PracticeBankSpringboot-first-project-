@@ -22,7 +22,7 @@ public class ValidatorConfig {
         ReloadableResourceBundleMessageSource messageSource =
                 new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:messages");
-        messageSource.setDefaultEncoding("UTF-8");
+        //messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
 
