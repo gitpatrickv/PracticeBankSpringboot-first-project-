@@ -8,14 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AgeValidator implements ConstraintValidator<AgeValid, Integer> {
 
-    private Integer below;
-    private Integer above;
 
     @Override
-    public void initialize(AgeValid ageValid) {
-
-        this.below = ageValid.below();
-        this.above = ageValid.above();
+    public void initialize(AgeValid constraintAnnotation) {
+        ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
     @Override
@@ -23,7 +19,7 @@ public class AgeValidator implements ConstraintValidator<AgeValid, Integer> {
         if(age == null){
             return false;
         }
-        if(age < below || age > above){
+        if(age < 18 || age > 100){
             return false;
         }
         return true;

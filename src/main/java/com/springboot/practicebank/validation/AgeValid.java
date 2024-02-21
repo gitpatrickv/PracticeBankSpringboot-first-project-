@@ -15,8 +15,6 @@ import static java.lang.annotation.ElementType.FIELD;
 @Constraint(validatedBy = AgeValidator.class)
 public @interface AgeValid {
 
-    int below() default 18;
-    int above() default 120;
     String message() default  "{age.invalid}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
