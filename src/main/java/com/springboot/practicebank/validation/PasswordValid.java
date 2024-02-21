@@ -15,7 +15,7 @@ import static java.lang.annotation.ElementType.FIELD;
 @Constraint(validatedBy = PasswordValidator.class)
 public @interface PasswordValid {
 
-    String message() default "test if password credential is valid";
+    String message() default "{password.invalid}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 
