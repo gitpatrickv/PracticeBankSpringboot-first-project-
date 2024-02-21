@@ -37,29 +37,4 @@ public class PasswordValidator implements ConstraintValidator<PasswordValid, Str
         }
         return false;
     }
-
-
-
-
-
-
-
-
-
-
-    /*
-    @Override
-    public void initialize(PasswordValid constraintAnnotation) {
-        ConstraintValidator.super.initialize(constraintAnnotation);
-    }
-    @Override
-    public boolean isValid(String pass, ConstraintValidatorContext constraintValidatorContext) {
-
-        if(pass == null || pass.isBlank() || pass.length() < 8 || pass.length() > 20 ){
-            return false;
-        }
-        return true;
-    }
-
-     */
 }

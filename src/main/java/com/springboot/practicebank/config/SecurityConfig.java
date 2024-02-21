@@ -22,8 +22,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
-import static com.springboot.practicebank.entity.Role.ADMIN;
-import static com.springboot.practicebank.entity.Role.BANKER;
+import static com.springboot.practicebank.entity.constants.Role.ADMIN;
+import static com.springboot.practicebank.entity.constants.Role.BANKER;
 
 @Configuration
 @EnableWebSecurity

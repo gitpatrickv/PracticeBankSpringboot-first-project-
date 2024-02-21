@@ -1,8 +1,8 @@
 package com.springboot.practicebank.service;
 
 import com.springboot.practicebank.dto.*;
-import com.springboot.practicebank.entity.Status;
 import com.springboot.practicebank.entity.User;
+import com.springboot.practicebank.entity.constants.Status;
 import com.springboot.practicebank.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,8 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
 
-import static com.springboot.practicebank.entity.Status.ACTIVE;
-import static com.springboot.practicebank.entity.Status.FROZEN;
+import static com.springboot.practicebank.entity.constants.Status.ACTIVE;
+import static com.springboot.practicebank.entity.constants.Status.FROZEN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 

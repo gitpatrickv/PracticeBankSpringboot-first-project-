@@ -1,10 +1,9 @@
 package com.springboot.practicebank.dto;
 
-import com.springboot.practicebank.entity.Role;
-import com.springboot.practicebank.entity.Status;
+import com.springboot.practicebank.entity.constants.Gender;
+import com.springboot.practicebank.entity.constants.Role;
+import com.springboot.practicebank.entity.constants.Status;
 import com.springboot.practicebank.validation.AgeValid;
-import com.springboot.practicebank.validation.GenderValid;
-import com.springboot.practicebank.validation.PasswordValid;
 import com.springboot.practicebank.validation.UniqueEmailValid;
 import com.springboot.practicebank.validation.marker.OnCreate;
 import com.springboot.practicebank.validation.marker.OnUpdate;
@@ -31,8 +30,8 @@ public class UserDto {
     private String firstName;
     @NotBlank(groups = OnCreate.class)
     private String lastName;
-    @GenderValid(groups = OnCreate.class)
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     @NotBlank(groups = OnCreate.class)
     private String address;
     @NotBlank(groups = OnCreate.class)
@@ -45,7 +44,6 @@ public class UserDto {
     private String email;
 
     @NotBlank(groups = OnCreate.class)
-    @PasswordValid(groups = OnCreate.class)
     private String password;
 
     private String accountNumber;
@@ -54,6 +52,8 @@ public class UserDto {
     @Size(min = 4, max = 4, message = "{pin.number.invalid}", groups = OnCreate.class)
     @Pattern(regexp = "\\d{4}", message = "{pin.number.size}", groups = OnCreate.class)
     private String atmPin;
+
+
 
     @Enumerated(EnumType.STRING)
     private Status status;

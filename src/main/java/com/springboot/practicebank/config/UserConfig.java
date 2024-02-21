@@ -1,8 +1,8 @@
 package com.springboot.practicebank.config;
 
 import com.springboot.practicebank.dto.UserDto;
-import com.springboot.practicebank.entity.Role;
-import com.springboot.practicebank.entity.Status;
+import com.springboot.practicebank.entity.constants.Role;
+import com.springboot.practicebank.entity.constants.Status;
 import com.springboot.practicebank.service.UserServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;

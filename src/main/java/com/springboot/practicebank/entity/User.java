@@ -1,5 +1,8 @@
 package com.springboot.practicebank.entity;
 
+import com.springboot.practicebank.entity.constants.Gender;
+import com.springboot.practicebank.entity.constants.Role;
+import com.springboot.practicebank.entity.constants.Status;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -27,7 +30,8 @@ public class User implements UserDetails{
     private Long id;
     private String firstName;
     private String lastName;
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     private String address;
     private String phoneNumber;
     private Integer age;

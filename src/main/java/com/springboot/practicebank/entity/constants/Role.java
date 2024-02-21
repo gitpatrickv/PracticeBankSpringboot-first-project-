@@ -1,4 +1,4 @@
-package com.springboot.practicebank.entity;
+package com.springboot.practicebank.entity.constants;
 
 public enum Role {
 
