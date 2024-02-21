@@ -3,13 +3,10 @@ package com.springboot.practicebank.validation.Impl;
 import com.springboot.practicebank.validation.PasswordValid;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import lombok.RequiredArgsConstructor;
 
-import java.security.Principal;
-
-
+@RequiredArgsConstructor
 public class PasswordValidator implements ConstraintValidator<PasswordValid, String> {
-
-    private Principal principal;
 
     @Override
     public void initialize(PasswordValid constraintAnnotation) {

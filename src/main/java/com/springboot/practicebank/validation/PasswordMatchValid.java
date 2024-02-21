@@ -1,6 +1,6 @@
 package com.springboot.practicebank.validation;
 
-import com.springboot.practicebank.validation.Impl.PasswordValidator;
+import com.springboot.practicebank.validation.Impl.PasswordMatchValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -8,16 +8,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.TYPE;
 
-@Target({FIELD})
+@Target({TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = PasswordValidator.class)
-public @interface PasswordValid {
+@Constraint(validatedBy = PasswordMatchValidator.class)
+public @interface PasswordMatchValid {
 
-    String message() default "test if password credential is valid";
+    String message() default "{password.mismatch}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
-
 
 }
