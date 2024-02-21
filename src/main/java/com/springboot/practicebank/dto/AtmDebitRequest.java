@@ -20,11 +20,11 @@ public class AtmDebitRequest {
     @Valid
 
     @AccountNumberValid
-    private String userAccountNumber;
+    private String accountNumber;
 
     @NotBlank
     @Size(min = 4, max = 4, message = "{pin.number.invalid}")
-    private String userPinNumber;
+    private String atmPin;
 
     private BigDecimal amount;
 }

@@ -1,9 +1,7 @@
 package com.springboot.practicebank.dto;
 
-import com.springboot.practicebank.validation.AccountNumberValid;
+import com.springboot.practicebank.validation.PasswordValid;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,23 +11,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+
 public class ChangePasswordRequest {
     @Valid
 
-    @AccountNumberValid
-    private String accountNumber;
+    @PasswordValid
+    private String oldPassword;
+    @PasswordValid
+    //@NotBlank
+    //@Size(min = 8, max = 20, message = "{password.invalid}")
+    private String password;
 
-
-    @NotBlank
-    private String currentPassword;
-
-
-    @NotBlank
-    @Size(min = 8, max = 20, message = "{password.invalid}")
-    private String newPassword;
-
-
-    @NotBlank
-    @Size(min = 8, max = 20, message = "{password.invalid}")
-    private String confirmationPassword;
+    //@NotBlank
+    //@Size(min = 8, max = 20, message = "{password.invalid}")
+    @PasswordValid
+    private String confirmPassword;
 }

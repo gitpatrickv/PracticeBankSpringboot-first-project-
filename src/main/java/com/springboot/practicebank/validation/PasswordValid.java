@@ -1,6 +1,6 @@
 package com.springboot.practicebank.validation;
 
-import com.springboot.practicebank.validation.Impl.UniqueEmailValidator;
+import com.springboot.practicebank.validation.Impl.PasswordValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -12,11 +12,12 @@ import static java.lang.annotation.ElementType.FIELD;
 
 @Target({FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UniqueEmailValidator.class)
-public @interface UniqueEmailValid {
+@Constraint(validatedBy = PasswordValidator.class)
+public @interface PasswordValid {
 
-    String message() default "{email.exist}";
+    String message() default "{password.invalid}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
+
 
 }

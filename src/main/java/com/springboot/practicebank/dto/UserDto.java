@@ -4,11 +4,12 @@ import com.springboot.practicebank.entity.Role;
 import com.springboot.practicebank.entity.Status;
 import com.springboot.practicebank.validation.AgeValid;
 import com.springboot.practicebank.validation.GenderValid;
+import com.springboot.practicebank.validation.PasswordValid;
 import com.springboot.practicebank.validation.UniqueEmailValid;
+import com.springboot.practicebank.validation.marker.OnCreate;
 import com.springboot.practicebank.validation.marker.OnUpdate;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -24,42 +25,34 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-
 public class UserDto {
-    @Valid
 
-    @NotBlank
+    @NotBlank(groups = OnCreate.class)
     private String firstName;
-
-    @NotBlank
+    @NotBlank(groups = OnCreate.class)
     private String lastName;
-
-    @GenderValid
+    @GenderValid(groups = OnCreate.class)
     private String gender;
-
-    @NotBlank
+    @NotBlank(groups = OnCreate.class)
     private String address;
-
-    @NotBlank
+    @NotBlank(groups = OnCreate.class)
     private String phoneNumber;
-
-    @AgeValid
+    @AgeValid(groups = OnCreate.class)
     private Integer age;
-
-    @Email
-    @UniqueEmailValid(groups = OnUpdate.class)
-    @NotBlank
+    @UniqueEmailValid(groups = {OnCreate.class, OnUpdate.class})
+    @Email(groups = {OnCreate.class, OnUpdate.class})
+    @NotBlank(groups = {OnCreate.class, OnUpdate.class})
     private String email;
 
-    @NotBlank
-    @Size(min = 8, max = 20, message = "{password.invalid}")
+    @NotBlank(groups = OnCreate.class)
+    @PasswordValid(groups = OnCreate.class)
     private String password;
 
     private String accountNumber;
 
-    @NotBlank
-    @Size(min = 4, max = 4, message = "{pin.number.invalid}")
-    @Pattern(regexp = "\\d{4}", message = "{pin.number.size}")
+    @NotBlank(groups = OnCreate.class)
+    @Size(min = 4, max = 4, message = "{pin.number.invalid}", groups = OnCreate.class)
+    @Pattern(regexp = "\\d{4}", message = "{pin.number.size}", groups = OnCreate.class)
     private String atmPin;
 
     @Enumerated(EnumType.STRING)

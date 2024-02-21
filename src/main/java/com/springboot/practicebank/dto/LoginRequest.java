@@ -1,6 +1,7 @@
 package com.springboot.practicebank.dto;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,9 +15,9 @@ import lombok.NoArgsConstructor;
 public class LoginRequest {
     @Valid
 
+    @Email
     @NotBlank
     private String email;
 
-    @NotBlank
     private String password;
 }
