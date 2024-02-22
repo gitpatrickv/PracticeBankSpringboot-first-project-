@@ -169,7 +169,6 @@ public class AccountServiceImpl implements AccountService{
                 .orElseThrow(() -> new EntityNotFoundException("Invalid Account Number: " + request.getAccountNumber()));
 
         if(!freezeAccount.isFrozen()) {
-
             freezeAccount.setStatus(Status.valueOf("FROZEN"));
             freezeAccount.setFrozen(true);
             userRepository.save(freezeAccount);

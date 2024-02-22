@@ -41,13 +41,10 @@ public class User implements UserDetails{
     private String atmPin;
     private BigDecimal accountBalance;
     private boolean frozen;
-
     @Enumerated(EnumType.STRING)
     private Status status;
-
     @Enumerated(EnumType.STRING)
     private Role role;
-
     @CreationTimestamp
     private LocalDate createdAt;
     @UpdateTimestamp
@@ -57,7 +54,6 @@ public class User implements UserDetails{
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
-
     @Override
     public String getUsername() {
         return email;
