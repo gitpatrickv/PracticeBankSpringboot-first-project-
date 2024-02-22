@@ -1,8 +1,8 @@
 package com.springboot.practicebank.service;
 
 import com.springboot.practicebank.dto.*;
-import com.springboot.practicebank.entity.Status;
 import com.springboot.practicebank.entity.User;
+import com.springboot.practicebank.entity.constants.Status;
 import com.springboot.practicebank.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,8 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
 
-import static com.springboot.practicebank.entity.Status.ACTIVE;
-import static com.springboot.practicebank.entity.Status.FROZEN;
+import static com.springboot.practicebank.entity.constants.Status.ACTIVE;
+import static com.springboot.practicebank.entity.constants.Status.FROZEN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -61,8 +61,8 @@ class AccountServiceImplTest {
     public void testFailedInsuficcientFundsAtmDebitAccount() {
 
         AtmDebitRequest debitRequest = new AtmDebitRequest();
-        debitRequest.setUserAccountNumber("202412345678");
-        debitRequest.setUserPinNumber("1234");
+        debitRequest.setAccountNumber("202412345678");
+        debitRequest.setAtmPin("1234");
         debitRequest.setAmount(BigDecimal.valueOf(500));
 
         User user = new User();
@@ -86,8 +86,8 @@ class AccountServiceImplTest {
     public void testSuccessfulAtmDebitAccount(){
 
         AtmDebitRequest debitRequest = new AtmDebitRequest();
-        debitRequest.setUserAccountNumber("202412345678");
-        debitRequest.setUserPinNumber("1234");
+        debitRequest.setAccountNumber("202412345678");
+        debitRequest.setAtmPin("1234");
         debitRequest.setAmount(BigDecimal.valueOf(500));
 
         User user = new User();
@@ -246,6 +246,9 @@ class AccountServiceImplTest {
         Assertions.assertThat(oldUser.getAddress()).isEqualTo(userDto.getAddress());
         Assertions.assertThat(oldUser.getPhoneNumber()).isEqualTo(userDto.getPhoneNumber());
         Assertions.assertThat(oldUser.getEmail()).isEqualTo(oldUser.getEmail());
+        //Assertions.assertThat(oldUser.getEmail()).isEqualTo(userDto.getEmail());
 
     }
+
+
 }

@@ -32,8 +32,9 @@ public class UserServiceImpl implements UserService {
     public BankResponse createUser(UserDto userDto) {
 
         boolean isEmailExists = userRepository.existsByEmail(userDto.getEmail());
+        boolean isAccountNumberExists = userRepository.existsByAccountNumber(userDto.getAccountNumber());
 
-        if (isEmailExists) {
+        if (isEmailExists || isAccountNumberExists) {
             return BankResponse.builder()
                     .responseMessage("Account already exist!!!")
                     .build();
@@ -45,6 +46,7 @@ public class UserServiceImpl implements UserService {
                 .gender(userDto.getGender())
                 .address(userDto.getAddress())
                 .phoneNumber(userDto.getPhoneNumber())
+                .age(userDto.getAge())
                 .email(userDto.getEmail())
                 .accountNumber(AccountUtils.generateAccountNumber())
                 .accountBalance(BigDecimal.ZERO)

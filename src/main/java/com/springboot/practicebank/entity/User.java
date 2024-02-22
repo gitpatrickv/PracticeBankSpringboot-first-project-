@@ -1,5 +1,8 @@
 package com.springboot.practicebank.entity;
 
+import com.springboot.practicebank.entity.constants.Gender;
+import com.springboot.practicebank.entity.constants.Role;
+import com.springboot.practicebank.entity.constants.Status;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -27,22 +30,21 @@ public class User implements UserDetails{
     private Long id;
     private String firstName;
     private String lastName;
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     private String address;
     private String phoneNumber;
+    private Integer age;
     private String email;
     private String password;
     private String accountNumber;
     private String atmPin;
     private BigDecimal accountBalance;
     private boolean frozen;
-
     @Enumerated(EnumType.STRING)
     private Status status;
-
     @Enumerated(EnumType.STRING)
     private Role role;
-
     @CreationTimestamp
     private LocalDate createdAt;
     @UpdateTimestamp
@@ -52,7 +54,6 @@ public class User implements UserDetails{
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
-
     @Override
     public String getUsername() {
         return email;

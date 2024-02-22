@@ -1,8 +1,8 @@
 package com.springboot.practicebank.service;
 
 import com.springboot.practicebank.dto.*;
-import com.springboot.practicebank.entity.Status;
 import com.springboot.practicebank.entity.User;
+import com.springboot.practicebank.entity.constants.Status;
 import com.springboot.practicebank.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,6 @@ public class AccountServiceImpl implements AccountService{
     private final UserRepository userRepository;
     private final TransactionService transactionService;
     private final PasswordEncoder passwordEncoder;
-
 
     @Override
     public BankResponse creditAccount(CreditRequest creditRequest) {
@@ -56,18 +55,17 @@ public class AccountServiceImpl implements AccountService{
                 .build();
     }
 
-
     @Override
     public BankResponse atmDebitAccount(AtmDebitRequest atmDebitRequest) {
 
-        Boolean userAccountNumber = userRepository.existsByAccountNumber(atmDebitRequest.getUserAccountNumber());
-        Boolean atmPinNumber = userRepository.existsByAtmPin(atmDebitRequest.getUserPinNumber());
+        Boolean userAccountNumber = userRepository.existsByAccountNumber(atmDebitRequest.getAccountNumber());
+        Boolean atmPinNumber = userRepository.existsByAtmPin(atmDebitRequest.getAtmPin());
 
         if(!userAccountNumber || !atmPinNumber){
             throw new BadCredentialsException("Invalid Credentials");
         }
 
-        User debitUser = userRepository.findByAccountNumber(atmDebitRequest.getUserAccountNumber());
+        User debitUser = userRepository.findByAccountNumber(atmDebitRequest.getAccountNumber());
         BigDecimal getAmount = atmDebitRequest.getAmount();
         BigDecimal accountBalance = debitUser.getAccountBalance();
 
@@ -171,7 +169,6 @@ public class AccountServiceImpl implements AccountService{
                 .orElseThrow(() -> new EntityNotFoundException("Invalid Account Number: " + request.getAccountNumber()));
 
         if(!freezeAccount.isFrozen()) {
-
             freezeAccount.setStatus(Status.valueOf("FROZEN"));
             freezeAccount.setFrozen(true);
             userRepository.save(freezeAccount);
@@ -201,25 +198,16 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public BankResponse changePassword(ChangePasswordRequest request, Principal user) {
 
-        User accountNumber = Optional.ofNullable(userRepository.findByAccountNumber(request.getAccountNumber()))
-                .orElseThrow(() -> new EntityNotFoundException("Invalid Account Number: " + request.getAccountNumber()));
+        User newPassword = (User) ((UsernamePasswordAuthenticationToken) user).getPrincipal();
 
-        User newPassword = (User) ((UsernamePasswordAuthenticationToken) user).getPrincipal();  //cast the User and UsernamePasswordAuthenticationToken
-
-        //if(request.getCurrentPassword().isEmpty() || request.getNewPassword().isEmpty() || request.getConfirmationPassword().isEmpty()){
-        //    throw new BadCredentialsException("Input password");
-        //}
-        //if(request.getNewPassword().length() < 8 || request.getNewPassword().length() > 20){
-        //    throw new IllegalArgumentException("Password length must be between 8 and 20 characters");
-        //}
-        if(!passwordEncoder.matches(request.getCurrentPassword(), newPassword.getPassword())){
+        if(!passwordEncoder.matches(request.getOldPassword(), newPassword.getPassword())){
             throw new BadCredentialsException("Wrong Password!");
         }
-        if(!request.getNewPassword().matches(request.getConfirmationPassword())){
+        if(!request.getPassword().matches(request.getConfirmPassword())){
             throw new BadCredentialsException("Password does not match!");
         }
 
-        newPassword.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        newPassword.setPassword(passwordEncoder.encode(request.getPassword()));
 
         userRepository.save(newPassword);
 
@@ -250,7 +238,6 @@ public class AccountServiceImpl implements AccountService{
         if (userDto.getEmail() != null) {
             updateInfo.setEmail(userDto.getEmail());
         }
-
         userRepository.save(updateInfo);
 
         return UpdateUserDto.builder()
@@ -260,7 +247,6 @@ public class AccountServiceImpl implements AccountService{
                 .phoneNumber(updateInfo.getPhoneNumber())
                 .email(updateInfo.getEmail())
                 .build();
-
     }
 
     @Override

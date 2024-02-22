@@ -1,12 +1,18 @@
 package com.springboot.practicebank.dto;
 
-
-import com.springboot.practicebank.entity.Role;
-import com.springboot.practicebank.entity.Status;
+import com.springboot.practicebank.entity.constants.Gender;
+import com.springboot.practicebank.entity.constants.Role;
+import com.springboot.practicebank.entity.constants.Status;
+import com.springboot.practicebank.validation.AgeValid;
+import com.springboot.practicebank.validation.UniqueEmailValid;
+import com.springboot.practicebank.validation.marker.OnCreate;
+import com.springboot.practicebank.validation.marker.OnUpdate;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,49 +20,46 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class UserDto {
-    @Valid
 
-    @NotNull
-    @NotBlank
+    @NotBlank(groups = OnCreate.class, message = "{firstname.required}")
     private String firstName;
-    @NotNull
-    @NotBlank
+    @NotBlank(groups = OnCreate.class, message = "{lastname.required}")
     private String lastName;
-    @NotNull
-    @NotBlank
-    private String gender;
-    @NotNull
-    @NotBlank
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+    @NotBlank(groups = OnCreate.class, message = "{address.required}")
     private String address;
-    @NotNull
-    @NotBlank
+    @NotBlank(groups = OnCreate.class, message = "{phone.number.required}")
     private String phoneNumber;
-    @Email
-    @NotNull
-    @NotBlank
+    @AgeValid(groups = OnCreate.class)
+    private Integer age;
+    @UniqueEmailValid(groups = {OnCreate.class, OnUpdate.class})
+    @Email(groups = {OnCreate.class, OnUpdate.class})
+    @NotBlank(groups = {OnCreate.class, OnUpdate.class}, message = "{email.required}")
     private String email;
-    @Size(min = 8, max = 20, message = "Password length must be between 8 and 20 characters")
+
+    @NotBlank(groups = OnCreate.class, message = "{password.required}")
     private String password;
+
     private String accountNumber;
-    @NotNull
-    @NotBlank
-    @Size(min = 4, max = 4, message = "Pin Number length must only contains 4 digit number")
-    @Pattern(regexp = "\\d{4}", message = "Pin Number must be a 4 digit number")
+
+    @NotBlank(groups = OnCreate.class)
+    @Size(min = 4, max = 4, message = "{pin.number.invalid}", groups = OnCreate.class)
+    @Pattern(regexp = "\\d{4}", message = "{pin.number.size}", groups = OnCreate.class)
     private String atmPin;
+
     @Enumerated(EnumType.STRING)
     private Status status;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
     private BigDecimal accountBalance;
-
-
 
 
 }

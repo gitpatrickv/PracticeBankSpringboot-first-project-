@@ -1,8 +1,8 @@
 package com.springboot.practicebank.dto;
 
+import com.springboot.practicebank.validation.AccountNumberValid;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,15 +19,12 @@ public class AtmDebitRequest {
 
     @Valid
 
-    @NotBlank
-    @NotNull
-    @Size(min = 11, max = 11, message = "Invalid Account Number")
-    private String userAccountNumber;
+    @AccountNumberValid
+    private String accountNumber;
 
     @NotBlank
-    @NotNull
-    @Size(min = 4, max = 4, message = "Pin Number must be a 4 digit number")
-    private String userPinNumber;
+    @Size(min = 4, max = 4, message = "{pin.number.invalid}")
+    private String atmPin;
 
     private BigDecimal amount;
 }
