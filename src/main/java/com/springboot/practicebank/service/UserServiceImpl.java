@@ -86,7 +86,6 @@ public class UserServiceImpl implements UserService {
             throw new BadCredentialsException("Login Failed: Invalid Credentials");
         }
     }
-
 }
 
 

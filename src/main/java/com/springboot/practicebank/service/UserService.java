@@ -10,6 +10,4 @@ public interface UserService {
     BankResponse createUser(UserDto userDto);
     LoginResponse userLogin(LoginRequest loginRequest);
 
-
-
 }

@@ -29,7 +29,4 @@ public class UserController {
     public LoginResponse userLogin(@RequestBody @Valid LoginRequest loginRequest){
         return userService.userLogin(loginRequest);
     }
-
-
-
 }
