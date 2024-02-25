@@ -16,8 +16,7 @@ public class PasswordMatchValidator implements ConstraintValidator<PasswordMatch
     public boolean isValid(Object object, ConstraintValidatorContext constraintValidatorContext) {
         ChangePasswordRequest request = (ChangePasswordRequest) object;
 
-         if(request.getPassword().length() < 8 || request.getPassword().length() > 20 || request.getPassword().isBlank()
-                 || request.getConfirmPassword().length() < 8 || request.getConfirmPassword().length() > 20 || request.getConfirmPassword().isBlank()){
+         if(request.getPassword().length() < 8 || request.getPassword().length() > 20 || request.getPassword().isBlank()) {
              return false;
          }
          if(request.getOldPassword().equals(request.getPassword())){
