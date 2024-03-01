@@ -1,7 +1,6 @@
 package com.springboot.practicebank.kafka.Producer;
 
 import com.springboot.practicebank.dto.TransactionDto;
-import com.springboot.practicebank.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class KafkaProducer  {
 
     private final NewTopic topic;
-    private final KafkaTemplate<String, UserDto> kafkaTemplate;
+    private final KafkaTemplate<String, TransactionDto> kafkaTemplate;
 
 
     public void sendMessage(TransactionDto transactionDto) {
