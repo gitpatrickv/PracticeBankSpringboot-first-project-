@@ -31,19 +31,4 @@ public class KafkaProducer  {
         kafkaTemplate.send(message);
     }
 
-    public void eventMessage(String event) {
-        log.info(String.format("Producer Event -> %s", event));
-
-        Message<String> message = MessageBuilder
-                .withPayload(event)
-                .setHeader(KafkaHeaders.TOPIC, topic.name())
-                .build();
-
-        kafkaTemplate.send(message);
-
-    }
-
-
-
-
 }
