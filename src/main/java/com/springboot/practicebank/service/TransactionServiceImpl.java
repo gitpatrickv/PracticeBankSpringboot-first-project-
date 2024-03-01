@@ -3,6 +3,7 @@ package com.springboot.practicebank.service;
 import com.springboot.practicebank.dto.InquiryRequest;
 import com.springboot.practicebank.dto.TransactionDto;
 import com.springboot.practicebank.entity.Transaction;
+import com.springboot.practicebank.kafka.Producer.KafkaProducer;
 import com.springboot.practicebank.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import java.util.List;
 public class TransactionServiceImpl implements TransactionService{
 
     private final TransactionRepository transactionRepository;
+    private final KafkaProducer kafkaProducer;
     @Override
     public void saveTransaction(TransactionDto transactionDto) {
 
@@ -25,6 +27,7 @@ public class TransactionServiceImpl implements TransactionService{
                 .build();
 
         transactionRepository.save(saveTransaction);
+        kafkaProducer.sendMessage(transactionDto);
     }
 
     @Override

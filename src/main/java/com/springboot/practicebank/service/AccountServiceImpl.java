@@ -47,8 +47,6 @@ public class AccountServiceImpl implements AccountService{
                 .build();
         transactionService.saveTransaction(transaction);
 
-        kafkaProducer.sendMessage(transaction);
-
         return BankResponse.builder()
                 .responseMessage("Transaction Successful!!!")
                 .accountInfo(AccountInfo.builder()
@@ -95,10 +93,8 @@ public class AccountServiceImpl implements AccountService{
                     .status("SUCCESSFUL")
                     .build();
             transactionService.saveTransaction(transaction);
-
-            kafkaProducer.sendMessage(transaction);
-
         }
+
         return BankResponse.builder()
                 .responseMessage("Transaction Successful!!!")
                 .accountInfo(AccountInfo.builder()
@@ -144,8 +140,6 @@ public class AccountServiceImpl implements AccountService{
                     .build();
             transactionService.saveTransaction(transaction1);
 
-            kafkaProducer.sendMessage(transaction1);
-
             User destinationAccount = userRepository.findByAccountNumber(transferRequest.getDestinationAccountNumber());
             BigDecimal destinationNewBalance = destinationAccount.getAccountBalance().add(getAmount);
             destinationAccount.setAccountBalance(destinationNewBalance);
@@ -158,8 +152,6 @@ public class AccountServiceImpl implements AccountService{
                     .status("SUCCESSFUL")
                     .build();
             transactionService.saveTransaction(transaction2);
-
-            kafkaProducer.sendMessage(transaction2);
 
             return BankResponse.builder()
                     .responseMessage("Transfer Successful!!!")
