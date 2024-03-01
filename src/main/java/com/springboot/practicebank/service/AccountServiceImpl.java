@@ -3,6 +3,7 @@ package com.springboot.practicebank.service;
 import com.springboot.practicebank.dto.*;
 import com.springboot.practicebank.entity.User;
 import com.springboot.practicebank.entity.constants.Status;
+import com.springboot.practicebank.kafka.Producer.KafkaProducer;
 import com.springboot.practicebank.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class AccountServiceImpl implements AccountService{
     private final UserRepository userRepository;
     private final TransactionService transactionService;
     private final PasswordEncoder passwordEncoder;
+    private final KafkaProducer kafkaProducer;
 
     @Override
     public BankResponse creditAccount(CreditRequest creditRequest) {
@@ -45,6 +47,8 @@ public class AccountServiceImpl implements AccountService{
                 .build();
         transactionService.saveTransaction(transaction);
 
+        kafkaProducer.sendMessage(transaction);
+
         return BankResponse.builder()
                 .responseMessage("Transaction Successful!!!")
                 .accountInfo(AccountInfo.builder()
@@ -53,6 +57,7 @@ public class AccountServiceImpl implements AccountService{
                         .amount(creditRequest.getAmount())
                         .build())
                 .build();
+
     }
 
     @Override
@@ -90,6 +95,9 @@ public class AccountServiceImpl implements AccountService{
                     .status("SUCCESSFUL")
                     .build();
             transactionService.saveTransaction(transaction);
+
+            kafkaProducer.sendMessage(transaction);
+
         }
         return BankResponse.builder()
                 .responseMessage("Transaction Successful!!!")
@@ -136,6 +144,7 @@ public class AccountServiceImpl implements AccountService{
                     .build();
             transactionService.saveTransaction(transaction1);
 
+            kafkaProducer.sendMessage(transaction1);
 
             User destinationAccount = userRepository.findByAccountNumber(transferRequest.getDestinationAccountNumber());
             BigDecimal destinationNewBalance = destinationAccount.getAccountBalance().add(getAmount);
@@ -150,6 +159,7 @@ public class AccountServiceImpl implements AccountService{
                     .build();
             transactionService.saveTransaction(transaction2);
 
+            kafkaProducer.sendMessage(transaction2);
 
             return BankResponse.builder()
                     .responseMessage("Transfer Successful!!!")
