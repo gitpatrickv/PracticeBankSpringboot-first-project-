@@ -1,4 +1,4 @@
-package com.springboot.practicebank.dto;
+package com.springboot.practicebank.model;
 
 import com.springboot.practicebank.entity.constants.Gender;
 import com.springboot.practicebank.entity.constants.Role;
@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserDto {
+public class UserModel {
 
     @NotBlank(groups = OnCreate.class, message = "{firstname.required}")
     private String firstName;

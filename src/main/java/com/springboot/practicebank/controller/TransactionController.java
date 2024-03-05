@@ -1,7 +1,7 @@
 package com.springboot.practicebank.controller;
 
-import com.springboot.practicebank.dto.InquiryRequest;
 import com.springboot.practicebank.entity.Transaction;
+import com.springboot.practicebank.model.InquiryRequest;
 import com.springboot.practicebank.service.TransactionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

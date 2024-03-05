@@ -1,4 +1,4 @@
-package com.springboot.practicebank.service;
+package com.springboot.practicebank.service.impl;
 
 import com.springboot.practicebank.security.JwtTokenProvider;
 import jakarta.servlet.http.HttpServletRequest;

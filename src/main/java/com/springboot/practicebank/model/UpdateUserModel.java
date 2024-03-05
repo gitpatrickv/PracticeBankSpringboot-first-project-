@@ -1,4 +1,4 @@
-package com.springboot.practicebank.dto;
+package com.springboot.practicebank.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UpdateUserDto {
+public class UpdateUserModel {
 
     private String firstName;
     private String lastName;

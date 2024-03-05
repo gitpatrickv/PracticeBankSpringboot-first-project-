@@ -1,9 +1,10 @@
-package com.springboot.practicebank.service;
+package com.springboot.practicebank.service.impl;
 
-import com.springboot.practicebank.dto.InquiryRequest;
-import com.springboot.practicebank.dto.TransactionDto;
 import com.springboot.practicebank.entity.Transaction;
+import com.springboot.practicebank.model.InquiryRequest;
+import com.springboot.practicebank.model.TransactionModel;
 import com.springboot.practicebank.repository.TransactionRepository;
+import com.springboot.practicebank.service.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,17 +12,17 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class TransactionServiceImpl implements TransactionService{
+public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionRepository transactionRepository;
     @Override
-    public void saveTransaction(TransactionDto transactionDto) {
+    public void saveTransaction(TransactionModel transactionModel) {
 
         Transaction saveTransaction = Transaction.builder()
-                .transactionType(transactionDto.getTransactionType())
-                .accountNumber(transactionDto.getAccountNumber())
-                .amount(transactionDto.getAmount())
-                .status(transactionDto.getStatus())
+                .transactionType(transactionModel.getTransactionType())
+                .accountNumber(transactionModel.getAccountNumber())
+                .amount(transactionModel.getAmount())
+                .status(transactionModel.getStatus())
                 .build();
 
         transactionRepository.save(saveTransaction);

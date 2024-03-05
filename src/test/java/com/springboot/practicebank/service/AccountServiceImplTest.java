@@ -1,9 +1,11 @@
 package com.springboot.practicebank.service;
 
-import com.springboot.practicebank.dto.*;
 import com.springboot.practicebank.entity.User;
 import com.springboot.practicebank.entity.constants.Status;
+import com.springboot.practicebank.model.*;
 import com.springboot.practicebank.repository.UserRepository;
+import com.springboot.practicebank.service.impl.AccountServiceImpl;
+import com.springboot.practicebank.service.impl.TransactionServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,7 +53,7 @@ class AccountServiceImplTest {
         BigDecimal newBalance = BigDecimal.valueOf(600);
 
         verify(userRepository, times(1)).save(any(User.class));
-        verify(transactionService, times(1)).saveTransaction(any(TransactionDto.class));
+        verify(transactionService, times(1)).saveTransaction(any(TransactionModel.class));
 
         assertEquals("Transaction Successful!!!", response.getResponseMessage());
         Assertions.assertThat(newBalance).isEqualTo(user.getAccountBalance());
@@ -103,7 +105,7 @@ class AccountServiceImplTest {
         BigDecimal newBalance = BigDecimal.valueOf(1500);
 
         verify(userRepository, times(1)).save(any(User.class));
-        verify(transactionService, times(1)).saveTransaction(any(TransactionDto.class));
+        verify(transactionService, times(1)).saveTransaction(any(TransactionModel.class));
 
         assertEquals("Transaction Successful!!!", response.getResponseMessage());
         Assertions.assertThat(newBalance).isEqualTo(user.getAccountBalance());
@@ -163,7 +165,7 @@ class AccountServiceImplTest {
         BigDecimal recipientNewBalance = BigDecimal.valueOf(1200);
 
         verify(userRepository, times(2)).save(any(User.class));
-        verify(transactionService, times(2)).saveTransaction(any(TransactionDto.class));
+        verify(transactionService, times(2)).saveTransaction(any(TransactionModel.class));
 
         Assertions.assertThat(sourceNewBalance).isEqualTo(sourceUser.getAccountBalance());
         Assertions.assertThat(recipientNewBalance).isEqualTo(destinationUser.getAccountBalance());
@@ -219,12 +221,12 @@ class AccountServiceImplTest {
 
     @Test
     public void testUpdateUserInformation(){
-        UserDto userDto = new UserDto();
-        userDto.setAccountNumber("202412345678");
-        userDto.setFirstName("newFirstName");
-        userDto.setLastName("newLastName");
-        userDto.setAddress("newAddress");
-        userDto.setPhoneNumber("099999999");
+        UserModel userModel = new UserModel();
+        userModel.setAccountNumber("202412345678");
+        userModel.setFirstName("newFirstName");
+        userModel.setLastName("newLastName");
+        userModel.setAddress("newAddress");
+        userModel.setPhoneNumber("099999999");
         //userDto.setEmail("newemail@gmail.com");
 
         User oldUser = new User();
@@ -237,14 +239,14 @@ class AccountServiceImplTest {
 
         when(userRepository.findByAccountNumber("202412345678")).thenReturn(oldUser);
 
-        UpdateUserDto updateUserDto = accountService.updateUserInfo(userDto);
+        UpdateUserModel updateUserModel = accountService.updateUserInfo(userModel);
 
         verify(userRepository, times(1)).save(any(User.class));
 
-        Assertions.assertThat(oldUser.getFirstName()).isEqualTo(userDto.getFirstName());
-        Assertions.assertThat(oldUser.getLastName()).isEqualTo(userDto.getLastName());
-        Assertions.assertThat(oldUser.getAddress()).isEqualTo(userDto.getAddress());
-        Assertions.assertThat(oldUser.getPhoneNumber()).isEqualTo(userDto.getPhoneNumber());
+        Assertions.assertThat(oldUser.getFirstName()).isEqualTo(userModel.getFirstName());
+        Assertions.assertThat(oldUser.getLastName()).isEqualTo(userModel.getLastName());
+        Assertions.assertThat(oldUser.getAddress()).isEqualTo(userModel.getAddress());
+        Assertions.assertThat(oldUser.getPhoneNumber()).isEqualTo(userModel.getPhoneNumber());
         Assertions.assertThat(oldUser.getEmail()).isEqualTo(oldUser.getEmail());
         //Assertions.assertThat(oldUser.getEmail()).isEqualTo(userDto.getEmail());
 

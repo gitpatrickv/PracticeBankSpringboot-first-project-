@@ -1,6 +1,6 @@
 package com.springboot.practicebank.controller;
 
-import com.springboot.practicebank.dto.*;
+import com.springboot.practicebank.model.*;
 import com.springboot.practicebank.service.AccountService;
 import com.springboot.practicebank.validation.marker.OnUpdate;
 import jakarta.validation.Valid;
@@ -40,8 +40,8 @@ public class AccountController {
     }
     @PutMapping("/updateInfo")
     @ResponseStatus(HttpStatus.OK)
-    public UpdateUserDto updateUserInfo(@RequestBody @Validated(OnUpdate.class) UserDto userDto){
-        return accountService.updateUserInfo(userDto);
+    public UpdateUserModel updateUserInfo(@RequestBody @Validated(OnUpdate.class) UserModel userModel){
+        return accountService.updateUserInfo(userModel);
     }
     @PutMapping("/changePassword")
     @ResponseStatus(HttpStatus.OK)

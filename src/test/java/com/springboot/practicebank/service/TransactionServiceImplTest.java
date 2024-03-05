@@ -1,9 +1,10 @@
 package com.springboot.practicebank.service;
 
-import com.springboot.practicebank.dto.InquiryRequest;
-import com.springboot.practicebank.dto.TransactionDto;
 import com.springboot.practicebank.entity.Transaction;
+import com.springboot.practicebank.model.InquiryRequest;
+import com.springboot.practicebank.model.TransactionModel;
 import com.springboot.practicebank.repository.TransactionRepository;
+import com.springboot.practicebank.service.impl.TransactionServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,23 +35,23 @@ class TransactionServiceImplTest {
     @Test
     void saveTransaction() {
 
-        TransactionDto transactionDto = new TransactionDto();
-        transactionDto.setAccountNumber("202412345678");
-        transactionDto.setTransactionType("CREDIT");
-        transactionDto.setAmount(BigDecimal.valueOf(500));
-        transactionDto.setStatus("SUCCESSFUL");
+        TransactionModel transactionModel = new TransactionModel();
+        transactionModel.setAccountNumber("202412345678");
+        transactionModel.setTransactionType("CREDIT");
+        transactionModel.setAmount(BigDecimal.valueOf(500));
+        transactionModel.setStatus("SUCCESSFUL");
 
-        transactionService.saveTransaction(transactionDto);
+        transactionService.saveTransaction(transactionModel);
 
         ArgumentCaptor<Transaction> argumentCaptor = ArgumentCaptor.forClass(Transaction.class);
         verify(transactionRepository, times(1)).save(argumentCaptor.capture());
 
         Transaction capturedTransaction = argumentCaptor.getValue();
         Assertions.assertThat(capturedTransaction).isNotNull();
-        Assertions.assertThat(capturedTransaction.getTransactionType()).isEqualTo(transactionDto.getTransactionType());
-        Assertions.assertThat(capturedTransaction.getAmount()).isEqualTo(transactionDto.getAmount());
-        Assertions.assertThat(capturedTransaction.getStatus()).isEqualTo(transactionDto.getStatus());
-        Assertions.assertThat(capturedTransaction.getAccountNumber()).isEqualTo(transactionDto.getAccountNumber());
+        Assertions.assertThat(capturedTransaction.getTransactionType()).isEqualTo(transactionModel.getTransactionType());
+        Assertions.assertThat(capturedTransaction.getAmount()).isEqualTo(transactionModel.getAmount());
+        Assertions.assertThat(capturedTransaction.getStatus()).isEqualTo(transactionModel.getStatus());
+        Assertions.assertThat(capturedTransaction.getAccountNumber()).isEqualTo(transactionModel.getAccountNumber());
 
     }
 
