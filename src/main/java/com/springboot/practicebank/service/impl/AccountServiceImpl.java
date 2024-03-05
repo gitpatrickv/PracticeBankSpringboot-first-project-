@@ -1,9 +1,11 @@
-package com.springboot.practicebank.service;
+package com.springboot.practicebank.service.impl;
 
-import com.springboot.practicebank.dto.*;
 import com.springboot.practicebank.entity.User;
 import com.springboot.practicebank.entity.constants.Status;
+import com.springboot.practicebank.model.*;
 import com.springboot.practicebank.repository.UserRepository;
+import com.springboot.practicebank.service.AccountService;
+import com.springboot.practicebank.service.TransactionService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -17,7 +19,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class AccountServiceImpl implements AccountService{
+public class AccountServiceImpl implements AccountService {
 
     private final UserRepository userRepository;
     private final TransactionService transactionService;
@@ -37,7 +39,7 @@ public class AccountServiceImpl implements AccountService{
         creditUser.setAccountBalance(newBalance);
         userRepository.save(creditUser);
 
-        TransactionDto transaction = TransactionDto.builder()
+        TransactionModel transaction = TransactionModel.builder()
                 .transactionType("CREDIT")
                 .accountNumber(creditUser.getAccountNumber())
                 .amount(creditRequest.getAmount())
@@ -83,7 +85,7 @@ public class AccountServiceImpl implements AccountService{
             debitUser.setAccountBalance(newBalance);
             userRepository.save(debitUser);
 
-            TransactionDto transaction = TransactionDto.builder()
+            TransactionModel transaction = TransactionModel.builder()
                     .transactionType("DEBIT")
                     .accountNumber(debitUser.getAccountNumber())
                     .amount(atmDebitRequest.getAmount())
@@ -128,7 +130,7 @@ public class AccountServiceImpl implements AccountService{
             sourceAccount.setAccountBalance(sourceNewBalance);
             userRepository.save(sourceAccount);
 
-            TransactionDto transaction1 = TransactionDto.builder()
+            TransactionModel transaction1 = TransactionModel.builder()
                     .transactionType("DEBIT")
                     .accountNumber(sourceAccount.getAccountNumber())
                     .amount(transferRequest.getAmount())
@@ -142,7 +144,7 @@ public class AccountServiceImpl implements AccountService{
             destinationAccount.setAccountBalance(destinationNewBalance);
             userRepository.save(destinationAccount);
 
-            TransactionDto transaction2 = TransactionDto.builder()
+            TransactionModel transaction2 = TransactionModel.builder()
                     .transactionType("CREDIT")
                     .accountNumber(destinationAccount.getAccountNumber())
                     .amount(transferRequest.getAmount())
@@ -218,29 +220,29 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public UpdateUserDto updateUserInfo(UserDto userDto) {
+    public UpdateUserModel updateUserInfo(UserModel userModel) {
 
-        User updateInfo = Optional.ofNullable(userRepository.findByAccountNumber(userDto.getAccountNumber()))
-                .orElseThrow(() -> new EntityNotFoundException("Invalid Account Number: " + userDto.getAccountNumber()));
+        User updateInfo = Optional.ofNullable(userRepository.findByAccountNumber(userModel.getAccountNumber()))
+                .orElseThrow(() -> new EntityNotFoundException("Invalid Account Number: " + userModel.getAccountNumber()));
 
-        if (userDto.getFirstName() != null) {
-            updateInfo.setFirstName(userDto.getFirstName());
+        if (userModel.getFirstName() != null) {
+            updateInfo.setFirstName(userModel.getFirstName());
         }
-        if (userDto.getLastName() != null) {
-            updateInfo.setLastName(userDto.getLastName());
+        if (userModel.getLastName() != null) {
+            updateInfo.setLastName(userModel.getLastName());
         }
-        if (userDto.getAddress() != null) {
-            updateInfo.setAddress(userDto.getAddress());
+        if (userModel.getAddress() != null) {
+            updateInfo.setAddress(userModel.getAddress());
         }
-        if (userDto.getPhoneNumber() != null) {
-            updateInfo.setPhoneNumber(userDto.getPhoneNumber());
+        if (userModel.getPhoneNumber() != null) {
+            updateInfo.setPhoneNumber(userModel.getPhoneNumber());
         }
-        if (userDto.getEmail() != null) {
-            updateInfo.setEmail(userDto.getEmail());
+        if (userModel.getEmail() != null) {
+            updateInfo.setEmail(userModel.getEmail());
         }
         userRepository.save(updateInfo);
 
-        return UpdateUserDto.builder()
+        return UpdateUserModel.builder()
                 .firstName(updateInfo.getFirstName())
                 .lastName(updateInfo.getLastName())
                 .address(updateInfo.getAddress())

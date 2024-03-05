@@ -1,4 +1,4 @@
-package com.springboot.practicebank.dto;
+package com.springboot.practicebank.model;
 
 import com.springboot.practicebank.validation.AccountNumberValid;
 import jakarta.validation.Valid;

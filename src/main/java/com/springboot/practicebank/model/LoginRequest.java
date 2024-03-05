@@ -1,4 +1,4 @@
-package com.springboot.practicebank.dto;
+package com.springboot.practicebank.model;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;

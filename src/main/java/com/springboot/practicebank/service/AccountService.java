@@ -1,6 +1,6 @@
 package com.springboot.practicebank.service;
 
-import com.springboot.practicebank.dto.*;
+import com.springboot.practicebank.model.*;
 
 import java.security.Principal;
 
@@ -11,7 +11,7 @@ public interface AccountService {
     BankResponse transfer(TransferRequest transferRequest);
     BankResponse balanceInquiry(InquiryRequest request);
     BankResponse deleteAccount(InquiryRequest request);
-    UpdateUserDto updateUserInfo(UserDto userDto);
+    UpdateUserModel updateUserInfo(UserModel userModel);
     BankResponse changePassword(ChangePasswordRequest request, Principal user);
     BankResponse freezeAccount(InquiryRequest request);
 

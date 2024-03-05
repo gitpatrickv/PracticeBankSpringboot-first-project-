@@ -1,21 +1,23 @@
 package com.springboot.practicebank.config;
 
-import com.springboot.practicebank.dto.UserDto;
 import com.springboot.practicebank.entity.constants.Role;
 import com.springboot.practicebank.entity.constants.Status;
-import com.springboot.practicebank.service.UserServiceImpl;
+import com.springboot.practicebank.model.UserModel;
+import com.springboot.practicebank.service.impl.UserServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@RequiredArgsConstructor
 public class UserConfig {
 
     @Bean
     public CommandLineRunner commandLineRunner(UserServiceImpl userService) {
         return args -> {
 
-            UserDto admin = UserDto.builder()
+            UserModel admin = UserModel.builder()
                     .firstName("Admin")
                     .lastName("Admin")
                     .email("admin@gmail.com")
@@ -25,7 +27,7 @@ public class UserConfig {
                     .build();
             System.out.println(userService.createUser(admin));
 
-            UserDto banker = UserDto.builder()
+            UserModel banker = UserModel.builder()
                     .firstName("Banker")
                     .lastName("Banker")
                     .email("banker@gmail.com")

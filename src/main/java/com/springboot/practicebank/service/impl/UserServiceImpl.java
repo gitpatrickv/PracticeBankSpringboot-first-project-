@@ -1,10 +1,11 @@
-package com.springboot.practicebank.service;
+package com.springboot.practicebank.service.impl;
 
 
-import com.springboot.practicebank.dto.*;
 import com.springboot.practicebank.entity.User;
+import com.springboot.practicebank.model.*;
 import com.springboot.practicebank.repository.UserRepository;
 import com.springboot.practicebank.security.JwtTokenProvider;
+import com.springboot.practicebank.service.UserService;
 import com.springboot.practicebank.utils.AccountUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,10 +30,10 @@ public class UserServiceImpl implements UserService {
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
-    public BankResponse createUser(UserDto userDto) {
+    public BankResponse createUser(UserModel userModel) {
 
-        boolean isEmailExists = userRepository.existsByEmail(userDto.getEmail());
-        boolean isAccountNumberExists = userRepository.existsByAccountNumber(userDto.getAccountNumber());
+        boolean isEmailExists = userRepository.existsByEmail(userModel.getEmail());
+        boolean isAccountNumberExists = userRepository.existsByAccountNumber(userModel.getAccountNumber());
 
         if (isEmailExists || isAccountNumberExists) {
             return BankResponse.builder()
@@ -41,19 +42,19 @@ public class UserServiceImpl implements UserService {
         }
 
         User newUser = User.builder()
-                .firstName(userDto.getFirstName())
-                .lastName(userDto.getLastName())
-                .gender(userDto.getGender())
-                .address(userDto.getAddress())
-                .phoneNumber(userDto.getPhoneNumber())
-                .age(userDto.getAge())
-                .email(userDto.getEmail())
+                .firstName(userModel.getFirstName())
+                .lastName(userModel.getLastName())
+                .gender(userModel.getGender())
+                .address(userModel.getAddress())
+                .phoneNumber(userModel.getPhoneNumber())
+                .age(userModel.getAge())
+                .email(userModel.getEmail())
                 .accountNumber(AccountUtils.generateAccountNumber())
                 .accountBalance(BigDecimal.ZERO)
-                .password(passwordEncoder.encode(userDto.getPassword()))
-                .atmPin(userDto.getAtmPin())
-                .status(userDto.getStatus())
-                .role(userDto.getRole())
+                .password(passwordEncoder.encode(userModel.getPassword()))
+                .atmPin(userModel.getAtmPin())
+                .status(userModel.getStatus())
+                .role(userModel.getRole())
                 .build();
 
         userRepository.save(newUser);

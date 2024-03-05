@@ -1,6 +1,6 @@
 package com.springboot.practicebank.validation.Impl;
 
-import com.springboot.practicebank.dto.ChangePasswordRequest;
+import com.springboot.practicebank.model.ChangePasswordRequest;
 import com.springboot.practicebank.validation.PasswordMatchValid;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
